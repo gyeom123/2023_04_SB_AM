@@ -60,8 +60,8 @@ public class UsrArticleController {
 	}
 
 	private void modofyArticle(int id, String title, String body) { // 원하는 게시물을 수정 함수
-		Article article = getArticleById(id); 
-		
+		Article article = getArticleById(id);
+
 		article.setTitle(title);
 		article.setBody(body);
 	}
@@ -111,16 +111,16 @@ public class UsrArticleController {
 		return this.articles;
 	}
 
-//	@RequestMapping("/usr/article/getArticles") // 게시물 보기
-//	@ResponseBody
-//	public Article getArticle(int id) {
-//
-////		Article article = getArticleById(id);
-////
-////		if (article == null) {
-////			return
-////		}
-//
-//		return article;
-//	}
+	@RequestMapping("/usr/article/getArticles") // 게시물 보기
+	@ResponseBody
+	public Object getArticle(int id) {
+
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return id + "번 게시글이 없습니다.";
+		}
+
+		return article;
+	}
 }
