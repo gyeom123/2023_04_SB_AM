@@ -1,14 +1,12 @@
 package com.koreaIT.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreaIT.demo.service.ArticleService;
-import com.koreaIT.demo.vo.Article;
+import com.koreaIT.demo.service.MemberService;
+import com.koreaIT.demo.util.Util;
 
 @Controller
 public class UsrMemberController {
@@ -21,16 +19,45 @@ public class UsrMemberController {
 	}
 
 	// 액션 메서드
-	@RequestMapping("/usr/member/dojoin")
+	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Member dojoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
+	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
 
-		memberService.writeMember(loginId, loginPw, name, nickname, cellphoneNum, email);
+		if (Util.empty(loginId)) {
+			return "아이디를 입력해주세요";
+		}
+		if (Util.empty(loginPw)) {
+			return "비밀번호를 입력해주세요";
+		}
+		if (Util.empty(name)) {
+			return "이름을 입력해주세요";
+		}
+		if (Util.empty(nickname)) {
+			return "닉네임을 입력해주세요";
+		}
+		if (Util.empty(cellphoneNum)) {
+			return "전화번호를 입력해주세요";
+		}
+		if (Util.empty(email)) {
+			return "이메일을 입력해주세요";
+		}
 
-		int id = memberService.getLastInsertId();
+		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 
-		return memberService.getArticleById(id);
+		if (id == -1) {
+			return "이미 사용중인 아이디입니다";
+		}
+
+		if (id == -2) {
+			return "이미 사용중인 닉네임입니다";
+		}
+		
+		if (id == -3) {
+			return "동일한 계정이 있습니다";
+		}
+
+		return memberService.getMemberById(id);
 	}
 
 }
