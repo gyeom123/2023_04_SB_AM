@@ -64,8 +64,9 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData<Article> doModify(int id, String title, String body) {
-
+	public ResultData doModify(int id, String title, String body) {
+		//Data1 의미가 없는 특수한 경우에는 굳이 리스트 타입을 넣어 줄 필요는 없다.
+		
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {

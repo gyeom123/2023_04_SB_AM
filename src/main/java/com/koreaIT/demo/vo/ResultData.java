@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class ResultData<DT> {
 	private String resultCode;
-	private String msg;
-	private DT data1;
+	private String msg; 
+	private DT data1; //객체 데이터 타입
 	
 	public static <DT> ResultData<DT> from(String resultCode, String msg) {
 		return from(resultCode, msg, null);
