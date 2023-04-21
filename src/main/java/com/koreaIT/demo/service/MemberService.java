@@ -43,7 +43,7 @@ public class MemberService {
 
 		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 
-		return ResultData.from("S-1", Util.f("%s회원님이 가입되었습니다", loginId), memberRepository.getLastInsertId());
+		return ResultData.from("S-1", Util.f("%s회원님이 가입되었습니다", loginId),"member", memberRepository.getLastInsertId());
 	}
 
 	public Member getMemberByLoginId(String loginId) {
