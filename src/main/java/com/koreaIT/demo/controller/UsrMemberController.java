@@ -53,6 +53,7 @@ public class UsrMemberController {
 
 		ResultData<Integer> doJoinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 
+		//실패했으면 해당 코드를 실행 성공했으면 해당 코드 실행 X
 		if (doJoinRd.isFail()) {
 			return ResultData.from(doJoinRd.getResultCode(), doJoinRd.getMsg());
 		}
@@ -90,7 +91,7 @@ public class UsrMemberController {
 		return ResultData.from("S-1", Util.f("%s회원님 환영합니다", LoginMember.getNickname()));
 	}
 
-	@RequestMapping("/usr/member/logout")
+	@RequestMapping("/usr/member/dologout")
 	@ResponseBody
 	public ResultData logOut(HttpSession httpsession) {
  
