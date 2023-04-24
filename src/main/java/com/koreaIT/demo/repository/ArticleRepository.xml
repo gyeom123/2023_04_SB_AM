@@ -7,9 +7,9 @@
 		INSERT INTO article
 			SET regDate = NOW(),
 				updateDate = NOW(),
+				memberId = #{memberId},
 				title = #{title},
 				`body` = #{body}
-				memberId = #{memberId}
 	</insert>
 	
 	<select id="getLastInsertId" resultType="int">

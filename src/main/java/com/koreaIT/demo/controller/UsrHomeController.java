@@ -14,8 +14,7 @@ public class UsrHomeController {
 	
 	@RequestMapping("/")
 	public String showRoot() {
-		return "redirect:/usr/home/main"; 
-		//redirect: => 요청 , 내가 받아온 요청을 다시 돌려보내는 역할
+		return "redirect:/usr/home/main";
 	}
 	
 }
