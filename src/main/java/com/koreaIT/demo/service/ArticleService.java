@@ -47,18 +47,35 @@ public class ArticleService {
 	public void deleteArticle(int id) {
 		articleRepository.deleteArticle(id);
 	}
-
-	public ResultData actorCanModify(int loginedMemberId, int memberId) {
-		
-		if (loginedMemberId != memberId) {
-			return ResultData.from("F-B", "해당 게시물에 대한 권한이 없습니다");
+	
+	public ResultData actorCanMD(int loginedMemberId, Article article) {
+		if(article == null) {
+			return ResultData.from("F-1", "해당 게시물은 존재하지 않습니다");
 		}
 		
-		return ResultData.from("S-1", "수정 가능");
+		if (loginedMemberId != article.getMemberId()) {
+			return ResultData.from("F-B", "해당 게시물에 대한 권한이 없습니다");	
+		}
+		
+		return ResultData.from("S-1", "가능");
 	}
 
-	public Article getforPrintArticle(int id) {
-		return articleRepository.getforPrintArticle(id);
+	public Article getForPrintArticle(int loginedMemberId, int id) {
+		
+		Article article = articleRepository.getForPrintArticle(id);
+		
+		actorCanChangeData(loginedMemberId, article);
+		
+		return article;
 	}
+
+	private void actorCanChangeData(int loginedMemberId, Article article) {
+		
+		ResultData actorCanChangeDataRd = actorCanMD(loginedMemberId, article);
+		
+		article.setActorCanChangeData(actorCanChangeDataRd.isSuccess());
+	}
+
+
 	
 }

@@ -8,7 +8,7 @@
 			<div class="table-box-type-1">
 				<table>
 					<tbody>
-						<c:forEach var="article" items="${article }">
+						<c:forEach var="article" items="${article }"  var="loginedMemberId" items="${loginedMemberId }">
 						<tr>
 							<th>번호</th>
 							<td>${article.id }</td>
@@ -33,11 +33,12 @@
 					</tbody>
 				</table>
 			</div>
-
 			<div class="btns">
 				<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-				<a class="btn-text-link" href="modify?id=${article.id }">수정</a>
-				<a class="btn-text-link" href="doDelete?id=${article.id }">삭제</a>
+			    <c:if test="${article.id == loginedMemberId}">
+					<a class="btn-text-link" href="modify?id=${article.id }">수정</a>
+					<a class="btn-text-link" href="doDelete?id=${article.id }">삭제</a>
+   				 </c:if>
 			</div>
 			
 		</div>

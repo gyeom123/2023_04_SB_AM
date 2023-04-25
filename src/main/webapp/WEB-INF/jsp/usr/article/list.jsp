@@ -21,7 +21,7 @@
 								<td>${article.id }</td>
 								<td>${article.regDate }</td>
 								<td><a href="detail?id=${article.id }">${article.title }</a></td>
-								<td>${article.memberId }</td>
+								<td>${article.writerName }</td>
 							</tr>
 						</c:forEach>
 					</tbody>

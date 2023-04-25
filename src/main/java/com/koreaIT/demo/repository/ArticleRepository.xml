@@ -16,13 +16,14 @@
 		SELECT LAST_INSERT_ID()
 	</select>
 	
-	<select id="getforPrintArticle" resultType="Article">
-		SELECT A.* M.name AS writerName
+	<select id="getForPrintArticle" resultType="Article">
+		SELECT A.*, M.name AS writerName 
 			FROM article AS A
 			INNER JOIN `member` AS M
-			ON A.memberid = M.id
-			WHERE id = #{id}
+			ON A.memberId = M.id
+			WHERE A.id = #{id}
 	</select>
+	
 	<select id="getArticleById" resultType="Article">
 		SELECT * 
 			FROM article
@@ -30,8 +31,10 @@
 	</select>
 	
 	<select id="getArticles" resultType="Article">
-		SELECT *
-			FROM article
+		SELECT A.*, M.name AS writerName 
+			FROM article AS A
+			INNER JOIN `member` AS M
+			ON A.memberId = M.id
 			ORDER BY id DESC
 	</select>
 	

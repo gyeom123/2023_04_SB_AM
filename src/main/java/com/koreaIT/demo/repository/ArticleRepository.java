@@ -21,6 +21,6 @@ public interface ArticleRepository {
 
 	public void deleteArticle(int id);
 
-	public Article getforPrintArticle(int id);
+	public Article getForPrintArticle(int id);
 
 }
