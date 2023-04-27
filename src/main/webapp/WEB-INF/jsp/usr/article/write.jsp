@@ -1,27 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="Login" />
+<c:set var="pageTitle" value="Write" />
 <%@ include file="../common/head.jsp" %>
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
-			<form action="doLogin" method="POST">
+			<form action="doWrite" method="POST">
 				<div class="table-box-type-1">
-					<table>
+					<table class="table table-zebra w-full">
 						<colgroup>
 							<col width="200" />
 						</colgroup>
 						<tbody>
 							<tr>
-								<th>로그인 아이디</th>
-								<td><input class="input input-bordered w-full max-w-xs" type="text" name="loginId" placeholder="아이디를 입력해주세요"/></td>
+								<th>제목</th>
+								<td><input class="input input-bordered w-full" type="text" name="title" placeholder="제목을 입력해주세요"/></td>
 							</tr>
 							<tr>
-								<th>로그인 비밀번호</th>
-								<td><input class="input input-bordered w-full max-w-xs" type="text" name="loginPw" placeholder="비밀번호를 입력해주세요"/></td>
+								<th>내용</th>
+								<td><textarea class="textarea textarea-bordered w-full" name="body" placeholder="내용을 입력해주세요"></textarea></td>
 							</tr>
 							<tr>
-								<td colspan="2"><button class="btn-text-link btn btn-active btn-ghost">로그인</button></td>
+								<td colspan="2"><button class="btn-text-link btn btn-active btn-ghost">작성</button></td>
 							</tr>
 						</tbody>
 					</table>
