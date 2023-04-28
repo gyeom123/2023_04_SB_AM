@@ -12,66 +12,68 @@ import com.koreaIT.demo.vo.ResultData;
 
 @Service
 public class ArticleService {
-
+	
 	private ArticleRepository articleRepository;
-
+	
 	@Autowired
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
 	}
-
-	public void writeArticle(int memberId, String title, String body) {
-		articleRepository.writeArticle(memberId, title, body);
+	
+	public void writeArticle(int memberId, int boardId, String title, String body) {
+		articleRepository.writeArticle(memberId, boardId, title, body);
 	}
-
+	
 	public int getLastInsertId() {
 		return articleRepository.getLastInsertId();
 	}
-
+	
 	public Article getArticleById(int id) {
 		return articleRepository.getArticleById(id);
 	}
-
-	public List<Article> getArticles(int boardId) {
+	
+	public List<Article> getArticles(int boardId){
 		return articleRepository.getArticles(boardId);
 	}
-
+	
 	public void modifyArticle(int id, String title, String body) {
 		articleRepository.modifyArticle(id, title, body);
 	}
-
+	
 	public void deleteArticle(int id) {
 		articleRepository.deleteArticle(id);
 	}
-
+	
 	public ResultData actorCanMD(int loginedMemberId, Article article) {
-		if (article == null) {
+		if(article == null) {
 			return ResultData.from("F-1", "해당 게시물은 존재하지 않습니다");
 		}
-
+		
 		if (loginedMemberId != article.getMemberId()) {
-			return ResultData.from("F-B", "해당 게시물에 대한 권한이 없습니다");
+			return ResultData.from("F-B", "해당 게시물에 대한 권한이 없습니다");	
 		}
-
+		
 		return ResultData.from("S-1", "가능");
 	}
 
 	public Article getForPrintArticle(int id) {
-
+		
 		Article article = articleRepository.getForPrintArticle(id);
-
+		
 		return article;
 	}
 
 	public void actorCanChangeData(int loginedMemberId, Article article) {
-
+		
 		ResultData actorCanChangeDataRd = actorCanMD(loginedMemberId, article);
-
+		
 		article.setActorCanChangeData(actorCanChangeDataRd.isSuccess());
 	}
 
-	public int getArticleCnt(int boardId) {
-		return articleRepository.getArticleCnt(boardId);
+	public int getArticlesCnt(int boardId) {
+		return articleRepository.getArticlesCnt(boardId);
 	}
 
+
+	
 }
