@@ -38,14 +38,14 @@
 								<td><textarea class="textarea textarea-bordered w-full" name="body" placeholder="내용을 입력해주세요">${article.body }</textarea></td>
 							</tr>
 							<tr>
-								<td colspan="2"><button class="btn-text-link btn btn-active btn-ghost">수정</button></td>
+								<td colspan="2"><button class="btn-text-link btn btn-active">수정</button></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</form>
 			<div class="btns mt-2">
-				<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+				<button class="btn-text-link btn btn-active" type="button" onclick="history.back();">뒤로가기</button>
 			</div>
 		</div>
 	</section>

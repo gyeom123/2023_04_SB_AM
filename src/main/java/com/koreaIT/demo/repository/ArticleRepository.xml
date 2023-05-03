@@ -17,6 +17,18 @@
 		SELECT LAST_INSERT_ID()
 	</select>
 	
+	<update id="increaseHitCount">
+		UPDATE article
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+	</update>
+	
+	<select id="getArticleHitCount" resultType="int">
+		SELECT hitCount
+			FROM article
+			WHERE id = #{id}
+	</select>
+	
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT A.*, M.name AS writerName 
 			FROM article AS A
@@ -35,6 +47,22 @@
 		SELECT COUNT(*)
 			FROM article
 			WHERE boardId = #{boardId}
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordType == 'title'">
+						AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchKeywordType == 'body'">
+						AND body LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND (
+							title LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR body LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+					</otherwise>
+				</choose>
+			</if>
 	</select>
 	
 	<select id="getArticles" resultType="Article">
@@ -44,9 +72,26 @@
 			ON A.memberId = M.id
 			WHERE 1 = 1
 			<if test="boardId != 0">
-				AND boardId = #{boardId}
+				AND A.boardId = #{boardId}
+			</if>
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordType == 'title'">
+						AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchKeywordType == 'body'">
+						AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND (
+							A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+					</otherwise>
+				</choose>
 			</if>
 			ORDER BY id DESC
+			LIMIT #{limitStart}, #{itemsInAPage}
 	</select>
 	
 	<update id="modifyArticle">
